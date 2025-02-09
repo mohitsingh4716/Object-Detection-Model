@@ -1,3 +1,5 @@
+import { throttle } from "lodash";
+
 export const renderPredictions= (predictions, ctx) => {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
@@ -15,7 +17,9 @@ export const renderPredictions= (predictions, ctx) => {
         ctx.lineWidth= 4;
         ctx.strokeRect(x, y, width, height);
 
-        
+        // fill color
+        ctx.fillStyle= `rgba(255, 0, 0, ${isPerson ? 0.2 : 0})`;
+        ctx.fillRect(x, y, width, height);
 
         // label background
         ctx.fillStyle= isPerson ? "#FF0000" : "#00FFFF";
@@ -27,5 +31,17 @@ export const renderPredictions= (predictions, ctx) => {
         // label text
         ctx.fillStyle= "#000000";
         ctx.fillText(prediction.class, x, y);
-    });
+
+        // Adding alert
+        if(isPerson){
+            playAudio();
+        }
+
+
+    });  
 }
+
+const playAudio = throttle(()=>{
+    const audio= new Audio("/alert.mp3");
+    audio.play();
+}, 2000);

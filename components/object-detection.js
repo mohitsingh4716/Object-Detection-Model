@@ -35,8 +35,7 @@ const ObjectDetection = () => {
 
             // find objects
 
-            // ObjectDetection.detect(img: tf.Tensor3D | ImageData | HTMLImageElement | HTMLCanvasElement | HTMLVideoElement, maxNumBoxes?: number, minScore?: number): Promise<DetectedObject[]>
-            // just it takes 3 input (img, maxNumBoxes=>no of object detect, minScore=>(o to 1)) 
+            // just it {net.detect(x,y ,z)} takes 3 input (img, maxNumBoxes=>no of object detect, minScore=>(o to 1)) 
 
             const detectedObjects= await net.detect(webcamRef.current.video,undefined,0.6)
 
@@ -52,7 +51,7 @@ const ObjectDetection = () => {
             const myVideoWidth= webcamRef.current.video.videoWidth;
             const myVideoHeight= webcamRef.current.video.videoHeight;
             
-            // console.log(myVideoWidth, myVideoHeight);
+  
 
             webcamRef.current.video.width = myVideoWidth;
             webcamRef.current.video.height = myVideoHeight;
@@ -69,15 +68,11 @@ const ObjectDetection = () => {
             <div>Loading COCO-SSD model...</div>
         ):
         <div className='relative flex justify-center items-center gradient p-1.5 rounded-md'>
-            {/* webcam */}
 
             <Webcam 
             ref={webcamRef}
             className='rounded-md w-full lg:h-[720px]' muted/>
-
-
-
-            {/* canvas */} 
+        
             <canvas
             ref={canvasRef}
             className='absolute top-0 left-0 z-999 w-full lg:h-[720px]'
